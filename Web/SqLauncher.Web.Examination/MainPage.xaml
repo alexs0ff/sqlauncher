@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="SqLauncher.Web.Examination.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:UI="clr-namespace:SqLauncher.Web.UI;assembly=SqLauncher.Web.UI"
+             xmlns:Examination="clr-namespace:SqLauncher.Web.Examination"
+             xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" mc:Ignorable="d"
+            
+    d:DesignHeight="250" d:DesignWidth="684"             
+             >
+
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Grid Name="grid1" Margin="0,0,-65,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="600" />
+                <ColumnDefinition  />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+           
+                <!--<UI:EntityForm
+                    Canvas.Left="10"
+                    Canvas.Top="50"
+                    x:Name="someTable"/>-->
+           
+            
+            <StackPanel
+                Orientation="Horizontal"
+                Grid.Column="0" Grid.Row="0"
+                >                
+                <Button Content="Test"  Height="23" HorizontalAlignment="Left"  Name="button1" VerticalAlignment="Top" Width="75" Click="Button1Click" />
+                <Button Content="Test2"  Height="23" HorizontalAlignment="Left"  VerticalAlignment="Top"  Click="button1_Click_1" />
+                 <Button Content="Undo"  Height="23" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="ButtonUndoClick" />
+               <Button Content="Redo"  Height="23" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="ButtonRedoClick" />
+            
+            
+            </StackPanel>
+            <sdk:DataGrid x:Name="testDataGrid" ItemsSource="{Binding Path=TestItems,Mode=OneWay}" Grid.Row="1" AutoGenerateColumns="False" RowDetailsVisibilityMode="VisibleWhenSelected">
+                <sdk:DataGrid.Columns>
+                    <sdk:DataGridTextColumn Binding="{Binding Path=Name}"/>
+                </sdk:DataGrid.Columns>
+                <sdk:DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=Age}"/>
+                    </DataTemplate>
+                </sdk:DataGrid.RowDetailsTemplate>
+                
+            </sdk:DataGrid>
+
+        </Grid>
+    </Grid>
+</UserControl>

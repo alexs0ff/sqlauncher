@@ -1,0 +1,10 @@
+﻿CREATE TABLE Cert
+(
+	CertId Integer PRIMARY KEY,
+	Name Text(10),
+	ItemId Integer,
+	FastId Integer,
+	ItemName Text(10),
+	FOREIGN KEY (ItemId,ItemName) REFERENCES Item(ItemId,ItemName),
+	FOREIGN KEY (FastId) REFERENCES Fast(FastId)
+)

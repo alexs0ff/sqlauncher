@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="SqLauncher.Web.UI.VersionedModelView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:UI="clr-namespace:SqLauncher.Web.UI"
+             xmlns:Model="clr-namespace:SqLauncher.Web.UI.Model"
+             xmlns:UserControls="clr-namespace:SqLauncher.Web.UI.Common.UserControls;assembly=SqLauncher.Web.UI.Common"
+             mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="400" d:DataContext="{d:DesignInstance Type=Model:DatabaseDocument}">
+    
+    <Grid x:Name="LayoutRoot" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+
+        <UI:ExtendedTabControl 
+            x:Name="TabControl"
+            Grid.Column="0"
+            Grid.Row="0"
+            Grid.RowSpan="1"
+            TabStripPlacement="Bottom"
+            ItemsSource="{Binding Path=Versions, Mode=OneWay}"            
+            >
+            
+            <UI:ExtendedTabControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid GotFocus="VersionInfoGotFocus" LostFocus="VersionInfoLostFocus"
+                          >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <UserControls:ClickToEditTextboxControl Text="{Binding Path=Name,Mode=TwoWay}" MinWidth="30"/>                      
+                        <Button Content="X" Click="CloseButtonClick" Grid.Column="1" Height="15" Width="15" Margin="5,0,0,0" Padding="0" />
+                    </Grid>
+                </DataTemplate>
+            </UI:ExtendedTabControl.ItemTemplate>
+            <UI:ExtendedTabControl.ContentTemplate>
+                <DataTemplate>
+                    <UI:ModelView Loaded="ModelViewLoaded"/>
+                </DataTemplate>
+            </UI:ExtendedTabControl.ContentTemplate>
+
+        </UI:ExtendedTabControl>
+    </Grid>
+</UserControl>

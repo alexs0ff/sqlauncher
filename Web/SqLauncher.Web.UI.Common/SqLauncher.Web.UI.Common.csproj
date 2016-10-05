@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{43A1E458-FC50-4D41-A570-AB68FA7F31B6}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SqLauncher.Web.UI.Common</RootNamespace>
+    <AssemblyName>SqLauncher.Web.UI.Common</AssemblyName>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <!-- This property group is only here to support building this project using the 
+       MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
+       to set the TargetFrameworkVersion to v3.5 -->
+  <PropertyGroup Condition="'$(MSBuildToolsVersion)' == '3.5'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Build\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Build\Release\</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libs\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="SilverlightContrib">
+      <HintPath>..\..\Libs\SilverlightContrib.dll</HintPath>
+    </Reference>
+    <Reference Include="SilverlightContrib.Controls">
+      <HintPath>..\..\Libs\SilverlightContrib.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libs\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Browser" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Behaviors\ResizeBehavior.cs" />
+    <Compile Include="ControlHelper.cs" />
+    <Compile Include="Converters\EnumToIEnumerableConverter.cs" />
+    <Compile Include="Converters\EnumToIntConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\InvertBoolToVisibilityConverter.cs" />
+    <Compile Include="DataTemplateSelector\DataTemplateSelector.cs" />
+    <Compile Include="DataTemplateSelector\SelectableItemsControl.cs" />
+    <Compile Include="Encodings\CyrillicEncoding.cs" />
+    <Compile Include="Measure\MeasureListProvider.cs" />
+    <Compile Include="Measure\CentimeterUnit.cs" />
+    <Compile Include="Measure\InchUnit.cs" />
+    <Compile Include="Measure\MeasureProxy.cs" />
+    <Compile Include="Measure\IMeasureStrategy.cs" />
+    <Compile Include="Measure\MillimeterUnit.cs" />
+    <Compile Include="Measure\PixelUnit.cs" />
+    <Compile Include="Popup\Popup.cs" />
+    <Compile Include="Popup\PopupHorizontalAlignment.cs" />
+    <Compile Include="Popup\PopupOrientation.cs" />
+    <Compile Include="Popup\PopupOrientationCollection.cs" />
+    <Compile Include="Popup\PopupPlacement.cs" />
+    <Compile Include="Popup\PopupVerticalAlignment.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RadioItem.cs" />
+    <Compile Include="RadioList.xaml.cs">
+      <DependentUpon>RadioList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shortcuts\ShortcutDescriptor.cs" />
+    <Compile Include="Shortcuts\ShortcutManager.cs" />
+    <Compile Include="UserControls\ClickToEditTextboxControl.xaml.cs">
+      <DependentUpon>ClickToEditTextboxControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XamlStyleReader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="RadioList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ClickToEditTextboxControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Validation\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SqLauncher.Web.Model\SqLauncher.Web.Model.csproj">
+      <Project>{9BCB2490-6D25-4D1F-8960-D4D2C12FD26F}</Project>
+      <Name>SqLauncher.Web.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
+        <SilverlightProjectProperties />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,7 @@
+﻿CREATE TABLE Cert2
+(
+	Id Integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	Name Text(55) UNIQUE NOT NULL,
+	Data Blob(55) NOT NULL
+);
+CREATE UNIQUE INDEX IndexName ON Cert2(Name desc)

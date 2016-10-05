@@ -1,0 +1,323 @@
+﻿<UserControl x:Class="SqLauncher.Web.Designer.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Ribbon="clr-namespace:SqLauncher.Web.Ribbon;assembly=SqLauncher.Web.Ribbon"
+             xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
+             xmlns:Controls="clr-namespace:SqLauncher.Web.Designer.Controls"
+             xmlns:Controller="clr-namespace:SqLauncher.Web.Controller;assembly=SqLauncher.Web.Controller"
+             xmlns:Measure="clr-namespace:SqLauncher.Web.UI.Common.Measure;assembly=SqLauncher.Web.UI.Common"
+             xmlns:Converters="clr-namespace:SqLauncher.Web.Designer.Converters"
+             xmlns:Designer="clr-namespace:SqLauncher.Web.Designer" mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="400"
+             d:DataContext="{d:DesignInstance Type=Controller:UserIteractionProvider}"
+             x:Name="mainPage"
+             >
+    <UserControl.Resources>
+        <Converters:DateTimeToTextConverter x:Key="DateTimeToTextConverter"/>
+        <Style TargetType="TextBlock" x:Key="LabelTextBlockStyle">
+            <Setter Property="Margin" Value="4,0,4,0"/>
+        </Style>
+        <Style TargetType="TextBox" x:Key="InputTextBoxStyle">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Margin" Value="0,1,1,1"/>
+        </Style>
+
+        <Style TargetType="CheckBox" x:Key="InputCheckBoxStyle">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Margin" Value="4,0,4,0"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot" Background="#FFDEE9FB">
+        <Grid.RowDefinitions>
+            <!--Ribbon-->
+            <RowDefinition Height="auto"/>
+            <!--Main content-->
+            <RowDefinition/>
+            <!--Status panel-->
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Ribbon:Ribbon
+            ShowCloseButton="False"
+            ShowMailButton="True"
+            OnMailButtonClick="OnMailButtonClick"
+            Grid.Row="0"
+            VerticalAlignment="Top"
+            RibbonVisibility="Visible"
+            Title="SQLauncher"            
+            >
+            <!--The start menu items-->
+            <Ribbon:Ribbon.StartButtonItems>                
+                <Ribbon:CommandItemUserControl Image="/SqLauncher.Web.Designer;component/Image/NewDocument32.png" Title="Create a new database schema…" Click="StartButtonItemCreateNewSchemaClick" />
+                <Ribbon:CommandItemUserControl Image="/SqLauncher.Web.Designer;component/Image/Open32.png" Title="Open an existing database schema…" Click="StartButtonItemOpenExistingSchemaClick"/>
+                <Ribbon:CommandItemUserControl Image="/SqLauncher.Web.Designer;component/Image/Save32.png" Title="Save the database schema…"
+                                               Click="StartButtonItemSaveSchemaClick"
+                                               IsEnabled="{Binding Path=HasOpenDocuments,Mode=OneWay}"
+                                        />
+                <Ribbon:CommandItemUserControl Image="/SqLauncher.Web.Designer;component/Image/GenerateSQL32.png" Title="Generate DDL script…" Click="StartButtonItemGenerateSqlClick"
+                                               IsEnabled="{Binding Path=HasOpenDocuments,Mode=OneWay}"
+                                               />
+                <Ribbon:SeparatorUserControl/>
+                <Ribbon:CommandItemUserControl Image="/SqLauncher.Web.Designer;component/Image/Close32.png"
+                                        Title="Close"
+                                        Click="StartButtonItemCloseClick" 
+                                               IsEnabled="{Binding Path=HasOpenDocuments,Mode=OneWay}"
+                                               
+                                               />
+                                        
+                
+            </Ribbon:Ribbon.StartButtonItems>
+            <Ribbon:RibbonPanel>
+                <Ribbon:RibbonPanel.Resources>
+                    <Style x:Key="PanelButtonStyle" TargetType="Ribbon:RibbonButton">
+                        <Setter Property="Height" Value="20"/>
+                        <Setter Property="Width" Value="20"/>
+                    </Style>
+                </Ribbon:RibbonPanel.Resources>
+                <Ribbon:RibbonButtonsGroup
+                    Orientation="Horizontal"
+                    >                   
+                    <Ribbon:RibbonButton 
+                        Style="{StaticResource PanelButtonStyle}"
+                        TooltipText="Save"
+                        ImageUrl="/SqLauncher.Web.Designer;component/Image/Save.png"
+                        OnClick="SaveFileMouseClick"
+                        IsEnabled="{Binding Path=HasOpenDocuments, Mode=OneWay}"
+                        />
+                    <Ribbon:RibbonButton
+                        Style="{StaticResource PanelButtonStyle}"
+                        TooltipText="Undo"
+                        OnClick="UndoRibbonButtonMouseClick"
+                        ImageUrl="/SqLauncher.Web.Designer;component/Image/Undo.png"
+                        IsEnabled="{Binding Path=CanUndo, Mode=OneWay}"
+                        />
+                    <Ribbon:RibbonButton
+                        TooltipText="Redo"
+                        Style="{StaticResource PanelButtonStyle}"
+                        OnClick="RedoRibbonButtonMouseClick"
+                        ImageUrl="/SqLauncher.Web.Designer;component/Image/Redo.png"
+                        IsEnabled="{Binding Path=CanRedo, Mode=OneWay}"
+                        />                  
+                </Ribbon:RibbonButtonsGroup>
+            </Ribbon:RibbonPanel>
+            <Ribbon:Tabs>
+                <Ribbon:TabsItem Header="Home">
+                    <Ribbon:TabsItem.Content>
+                        <Ribbon:RibbonItems>
+                            <Ribbon:RibbonItem Title="Clipboard">
+                                <!-- Clipboard Content -->
+                                <Ribbon:RibbonItem.Content>
+                                    <Ribbon:RibbonButtonsGroup Orientation="Horizontal">
+                                        <!-- paste -->
+                                        <Ribbon:RibbonButton 
+                                            OnClick="PasteButtonOnClick"
+                                            ImageUrl="/SqLauncher.Web.Designer;component/Image/Paste.png" Text="Paste" 
+                                                                      TooltipTitle="Paste (CTRL + V)" 
+                                                                      TooltipText="Paste from clipboard.">
+
+                                        </Ribbon:RibbonButton>
+                                        <Ribbon:RibbonButtonsGroup>
+                                            <Ribbon:RibbonButton  
+                                                OnClick="CopyButtonOnClick"
+                                                ImageUrl="/SqLauncher.Web.Designer;component/Image/Copy.png" 
+                                                                          TooltipTitle="Copy (CTRL + C)" 
+                                                                          TooltipText="Copy the selected into clipboard"
+                                                IsEnabled="{Binding Path=HasSelectedEntities,Mode=OneWay}"
+                                                >
+
+                                            </Ribbon:RibbonButton>
+                                            <!-- cut -->
+                                            <Ribbon:RibbonButton  
+                                                OnClick="CutButtonOnClick"
+                                                ImageUrl="/SqLauncher.Web.Designer;component/Image/Cut.png" 
+                                                                          TooltipTitle="Cut (CTRL + X)" 
+                                                                          TooltipText="Cut the selected from document into clipboard" 
+                                                IsEnabled="{Binding Path=HasSelectedEntities,Mode=OneWay}"
+                                                />
+
+
+                                            <Ribbon:RibbonButton OnClick="DuplicateButtonOnClick" TooltipTitle="Dublicate (CTRL + D)" 
+                                                                    TooltipText="Dublicate the selected object"
+                                                                    ImageUrl="/SqLauncher.Web.Designer;component/Image/Copy.png" 
+                                                                    IsEnabled="{Binding Path=HasSelectedEntities,Mode=OneWay}"
+                                                                 />
+                                        </Ribbon:RibbonButtonsGroup>
+                                    </Ribbon:RibbonButtonsGroup>
+                                </Ribbon:RibbonItem.Content>
+                            </Ribbon:RibbonItem>
+
+                            <Ribbon:RibbonItem Title="Entity">
+                                <Ribbon:RibbonItem.Content>
+                                    <Ribbon:RibbonButtonsGroup Orientation="Horizontal" >                                       
+                                        <Ribbon:RibbonColorButton 
+                                            ImageUrl="Image/Palette.png"
+                                            BrushChanged="BackgroundBrushChanged"
+                                            TooltipTitle="Fill"
+                                            TooltipText="EntityFill"
+                                            Enabled="{Binding Path=HasSelectedEntities, Mode=TwoWay}"
+                                            >
+                                            <Ribbon:RibbonColorList Brush="{Binding Path=Brush,Mode=TwoWay}"/>
+                                        </Ribbon:RibbonColorButton>                                      
+                                    </Ribbon:RibbonButtonsGroup>
+                                </Ribbon:RibbonItem.Content>
+                            </Ribbon:RibbonItem>
+                            </Ribbon:RibbonItems>
+                    </Ribbon:TabsItem.Content>
+                </Ribbon:TabsItem>
+                <Ribbon:TabsItem Header="Insert">
+                    <Ribbon:TabsItem.Content>
+                        <Ribbon:RibbonItems>
+                            <Ribbon:RibbonItem Title="Components">
+                                <Ribbon:RibbonItem.Content>
+                                    <Ribbon:RibbonButtonsGroup Orientation="Horizontal">
+                                        <Ribbon:RibbonButton
+                                        Width="80"
+                                        ImageUrl="Image/AddNewEntity.png"
+                                        Text="Entity"
+                                        OnClick="InsertNewEntity"
+                                        IsEnabled="{Binding Path=HasOpenDocuments, Mode=OneWay}"
+                                        />
+                                        <Ribbon:RibbonButtonsGroup>
+                                        <Ribbon:RibbonButton
+                                         Width="80"
+                                        ImageUrl="Image/AddNewRelation.png"
+                                        Text="Relation"
+                                         IsEnabled="{Binding Path=HasOpenDocuments, Mode=OneWay}"
+                                        >
+                                            <Ribbon:RibbonButton.RibbonList>
+                                                <Ribbon:RibbonList>
+                                                    <Ribbon:RibbonList.Items>
+                                                         <Ribbon:RibbonListItem Text="Non identifying" OnClick="InsertNewNonIdentifyingRelation"/>
+                                                        <Ribbon:RibbonListItem Text="Identifying" OnClick="InsertNewIdentifyingRelation" />
+                                                         <Ribbon:RibbonListItem Text="Informative" OnClick="InsertNewInformativeRelation"/>
+                                                        </Ribbon:RibbonList.Items>
+                                                    </Ribbon:RibbonList>
+                                                </Ribbon:RibbonButton.RibbonList>
+                                            </Ribbon:RibbonButton>
+                                        </Ribbon:RibbonButtonsGroup>
+                                    </Ribbon:RibbonButtonsGroup>
+                                </Ribbon:RibbonItem.Content>
+                            </Ribbon:RibbonItem>
+                        </Ribbon:RibbonItems>
+                    </Ribbon:TabsItem.Content>
+                </Ribbon:TabsItem>
+
+                <Ribbon:TabsItem Header="Model">                    
+                    <Ribbon:TabsItem.Content>
+                        <Ribbon:RibbonItems>
+                            <Ribbon:RibbonItem Title="Page">
+                                <Ribbon:RibbonItem.Content>
+                                    <Ribbon:RibbonButtonsGroup Orientation="Vertical">
+                                        <Ribbon:RibbonButtonsGroup.Resources>
+                                            <Measure:MeasureListProvider x:Key="MeasureListProvider"/>
+                                        </Ribbon:RibbonButtonsGroup.Resources>
+                                            <Ribbon:RibbonComboBox
+                                                ItemsSource="{Binding Source={StaticResource MeasureListProvider},Path=Measures }"
+                                                SelectedItem="{Binding Path=ModelSize.Measure,Mode=TwoWay}"
+                                                HorizontalAlignment="Stretch" Height="21"                                                
+                                                >                                               
+                                            </Ribbon:RibbonComboBox>
+                                        
+                                        <Border>
+                                            <Ribbon:RibbonButtonsGroup Orientation="Vertical">
+                                                <Ribbon:RibbonButtonsGroup Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                                    <TextBlock VerticalAlignment="Center" Width="60" Text="Width:" Style="{StaticResource LabelTextBlockStyle}"/>
+                                                    <TextBox Width="60" Text="{Binding Path=ModelSize.Width.UserMeasure, Mode=TwoWay}" 
+                                                             Style="{StaticResource InputTextBoxStyle}"
+                                                             IsEnabled="{Binding Path=HasOpenDocuments, Mode=OneWay}"
+                                                             />
+                                        </Ribbon:RibbonButtonsGroup>
+                                        
+                                        <Ribbon:RibbonButtonsGroup Orientation="Horizontal">
+                                                    <TextBlock VerticalAlignment="Center" Width="60" Text="Height:" 
+                                                               Style="{StaticResource LabelTextBlockStyle}"/>
+                                                    <TextBox Width="60" 
+                                                             Text="{Binding Path=ModelSize.Height.UserMeasure, Mode=TwoWay}"
+                                                             Style="{StaticResource InputTextBoxStyle}" 
+                                                             IsEnabled="{Binding Path=HasOpenDocuments, Mode=OneWay}"
+                                                             /> 
+                                        </Ribbon:RibbonButtonsGroup>
+                                          </Ribbon:RibbonButtonsGroup>
+                                        </Border>
+
+                                    </Ribbon:RibbonButtonsGroup>
+                                </Ribbon:RibbonItem.Content>
+                            </Ribbon:RibbonItem>
+                            <Ribbon:RibbonItem Title="Version">
+                                <Ribbon:RibbonItem.Content>
+                                    <Ribbon:RibbonButtonsGroup Orientation="Vertical">
+                                        <Border>
+                                            <Ribbon:RibbonButtonsGroup Orientation="Vertical">
+                                                <Ribbon:RibbonButtonsGroup Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                                    <TextBlock VerticalAlignment="Center" Width="80" Text="Creation date:" Style="{StaticResource LabelTextBlockStyle}"/>
+                                                    <TextBox Width="120" Style="{StaticResource InputTextBoxStyle}" Text="{Binding Path=VersionCreateDate, Mode=OneWay,Converter={StaticResource DateTimeToTextConverter}}" IsReadOnly="True"/>
+                                                </Ribbon:RibbonButtonsGroup>
+
+                                                <Ribbon:RibbonButtonsGroup Orientation="Horizontal"  HorizontalAlignment="Left">
+                                                    <TextBlock VerticalAlignment="Center" Width="80" Text="Number:" Style="{StaticResource LabelTextBlockStyle}"/>
+                                                    <TextBox Width="60" Style="{StaticResource InputTextBoxStyle}" Text="{Binding Path=VersionNumber, Mode=OneWay}" IsReadOnly="True"/>
+                                                </Ribbon:RibbonButtonsGroup>
+                                            </Ribbon:RibbonButtonsGroup>
+                                        </Border>
+
+                                    </Ribbon:RibbonButtonsGroup>
+                                </Ribbon:RibbonItem.Content>
+                            </Ribbon:RibbonItem>
+
+                            <Ribbon:RibbonItem Title="View">
+                                <Ribbon:RibbonItem.Content>
+                                    <Ribbon:RibbonButtonsGroup Orientation="Vertical">
+                                        <Border>
+                                            <Ribbon:RibbonButtonsGroup Orientation="Vertical">
+                                                <Ribbon:RibbonButtonsGroup Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">                                                    
+                                                    <CheckBox Style="{StaticResource InputCheckBoxStyle}"
+                                                              VerticalAlignment="Center"
+                                                              Margin="4,2,0,0"
+                                                              IsChecked="{Binding Path=IteractionState.PhysicalView, Mode=TwoWay}"
+                                                              IsEnabled="{Binding Path=HasOpenDocuments, Mode=OneWay}"
+                                                              />
+                                                    <TextBlock VerticalAlignment="Center" Width="80" Margin="1,0,0,0"  
+                                                               HorizontalAlignment="Left"
+                                                               Text="physical"
+                                                               Style="{StaticResource LabelTextBlockStyle}"
+                                                               MouseLeftButtonDown="PhysicalViewTextBlockMouseLeftButtonDown"
+                                                               />
+                                                </Ribbon:RibbonButtonsGroup>                                                
+                                            </Ribbon:RibbonButtonsGroup>
+                                        </Border>
+
+                                    </Ribbon:RibbonButtonsGroup>
+                                </Ribbon:RibbonItem.Content>
+                            </Ribbon:RibbonItem>
+
+                        </Ribbon:RibbonItems>
+                    </Ribbon:TabsItem.Content>
+                </Ribbon:TabsItem>
+
+
+            </Ribbon:Tabs>
+        </Ribbon:Ribbon>
+        <sdk:TabControl
+            Grid.Row="1"
+            x:Name="mainTabControl"            
+            >
+            
+        </sdk:TabControl>
+        <StackPanel
+            
+            Grid.Row="2"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right"            
+            >
+            <Controls:ZoomSlider
+                IsEnabled="{Binding Path=ZoomAbility,Mode=OneWay}"
+                Zoom="{Binding Path=ZoomPercent,Mode=TwoWay}"
+                />
+            
+        </StackPanel>
+    </Grid>
+</UserControl>

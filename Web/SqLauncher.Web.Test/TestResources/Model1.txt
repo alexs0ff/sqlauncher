@@ -1,0 +1,30 @@
+﻿CREATE TABLE City
+(
+	CityId Integer PRIMARY KEY AUTOINCREMENT,
+	Name Text(50)
+);
+
+CREATE TABLE Employee
+(
+	EmployeeId Integer PRIMARY KEY AUTOINCREMENT,
+	CityId Integer,
+	FullName Text(125),
+	FOREIGN KEY (CityId) REFERENCES City(CityId)
+);
+
+CREATE TABLE Manager
+(
+	ManagerId Integer PRIMARY KEY AUTOINCREMENT,
+	FullName Text(125),
+	CityId Integer,
+	FOREIGN KEY (CityId) REFERENCES City(CityId)
+);
+
+CREATE TABLE ManagerEmployeeMap
+(
+	ManagerEmployeeMapId Integer PRIMARY KEY AUTOINCREMENT,
+	ManagerId Integer,
+	EmployeeId Integer,
+	FOREIGN KEY (ManagerId) REFERENCES Manager(ManagerId),
+	FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeId)
+);

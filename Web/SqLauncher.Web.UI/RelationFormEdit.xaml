@@ -1,0 +1,192 @@
+﻿<UserControl x:Class="SqLauncher.Web.UI.RelationFormEdit"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
+             xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"
+             xmlns:Common="clr-namespace:SqLauncher.Web.UI.Common;assembly=SqLauncher.Web.UI.Common"
+             xmlns:DataProviders="clr-namespace:SqLauncher.Web.UI.DataProviders"
+             xmlns:Converters="clr-namespace:SqLauncher.Web.UI.Converters"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:behaviors="clr-namespace:SqLauncher.Web.UI.Behaviors"             
+             mc:Ignorable="d" d:DesignWidth="560"
+             MinWidth="521"
+             MinHeight="200"
+             >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <i:Interaction.Behaviors>
+        <behaviors:MouseMoveBehavior/>
+    </i:Interaction.Behaviors>
+    <Grid x:Name="LayoutRoot" Background="{StaticResource EntityFormFillDefaultBrush}" >
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.Resources>
+                <DataProviders:RelationshipTypesDataProvider x:Key="RelationshipTypesDataProvider"/>
+                <Converters:RelationshipTypeConverter x:Key="RelationshipTypeConverter"/>
+                <Converters:CardinalityToStringConverter x:Key="CardinalityToStringConverter"/>
+        </Grid.Resources>
+        <sdk:TabControl 
+            
+            VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{StaticResource EntityFormFillDefaultBrush}"
+            SelectionChanged="TabControlSelectionChanged"
+            >
+                <sdk:TabItem 
+                    Header="Type"                    
+                    >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Vertical" >
+                            <StackPanel                           
+                             Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Margin="10,0,0,0" Text="Relation Title:" Style="{StaticResource EntityLabelOfTextLabelStyle}" />
+                                <TextBox Style="{StaticResource EntityEditTextBoxStyle}" Width="150" Margin="10,0,0,0"
+                       Text="{Binding Path=Relation.Caption.Title, Mode=TwoWay}" />
+
+                                <TextBlock Margin="10,0,0,0" Text="Relation Name:" Style="{StaticResource EntityLabelOfTextLabelStyle}" />
+                                <TextBox Style="{StaticResource EntityEditTextBoxStyle}" Width="150" Margin="10,0,0,0"
+                       Text="{Binding Path=Relation.Caption.Physical, Mode=TwoWay}" />
+
+                            </StackPanel>
+                            <Rectangle Fill="{StaticResource EntityBorderBrush}" Height="1" StrokeThickness="1"
+                                        HorizontalAlignment="Stretch" Margin="0,5,0,5" />
+                        </StackPanel>
+                        <toolkit:DockPanel                                 
+                                LastChildFill="True"
+                                HorizontalAlignment="Stretch"
+                                Grid.Row="1"                                
+                                >
+                            <Common:RadioList 
+                                    Background="{StaticResource EntityFormFillDefaultBrush}"
+                                    toolkit:DockPanel.Dock="Left"
+                                    HorizontalAlignment="Left"
+                                    GroupName="Relationship Type:"
+                                    ItemsSource="{Binding Path=RelationshipTypes, Source={StaticResource RelationshipTypesDataProvider}}"
+                                    SelectedValue="{Binding Path=Relation.Type, Mode=TwoWay,Converter={StaticResource RelationshipTypeConverter}}"
+                                    />
+                            <Grid>                               
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>                                    
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                            <Grid.Resources>
+                                <Style TargetType="StackPanel" x:Key="InnerStackPanel">
+                                    <Setter Property="Margin" Value="10,10,0,0"/>
+                                    <Setter Property="Orientation" Value="Horizontal"/>
+                                    <Setter Property="VerticalAlignment" Value="Top"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                </Style>
+                                <Style TargetType="TextBox" x:Key="InnerTextBox" BasedOn="{StaticResource EntityEditTextBoxStyle}">
+                                    <Setter Property="Width" Value="40"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </Grid.Resources>
+                            <StackPanel 
+                                Style="{StaticResource InnerStackPanel}"
+                                Margin="10,2,0,0"
+                                Orientation="Horizontal"
+                                        Grid.Row="1"
+                                        >
+                                <TextBlock Style="{StaticResource EntityLabelOfTextLabelStyle}" Text="Cardinality:"/>
+                                <TextBlock Margin="10,0,0,0"  Grid.ColumnSpan="2" MinWidth="240" 
+                                           Text="{Binding Path=Relation.Cardinality,Converter={StaticResource CardinalityToStringConverter}, Mode=OneWay}"
+                                           HorizontalAlignment="Left" VerticalAlignment="Center"
+                                           Style="{StaticResource EntityLabelOfTextLabelStyle}"
+                                           />                               
+                               
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Column="1" Orientation="Horizontal">
+                                <StackPanel
+                                    Style="{StaticResource InnerStackPanel}"                                   
+                                    
+                                    >
+                                    <TextBlock Style="{StaticResource EntityLabelOfTextLabelStyle}" Text="Parent from:"/>
+                                    <TextBox Style="{StaticResource InnerTextBox}" Text="{Binding Path=Relation.Cardinality.ParentFrom, Mode=TwoWay,ValidatesOnExceptions=True}">
+                                       
+                                    </TextBox>
+                                </StackPanel>
+
+                            
+                                <StackPanel
+                                    
+                                    Style="{StaticResource InnerStackPanel}"                                     
+                                    >
+                                    <StackPanel Orientation="Vertical" >
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Style="{StaticResource EntityLabelOfTextLabelStyle}" Text="Child from:"/>
+                                            <TextBox Style="{StaticResource InnerTextBox}" Text="{Binding Path=Relation.Cardinality.ChildFrom, Mode=TwoWay,ValidatesOnExceptions=True}"/>
+                                        </StackPanel>
+                                        <StackPanel
+                                            Margin="0,10,0,0"
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Right"
+                                            >
+                                            <TextBlock Style="{StaticResource EntityLabelOfTextLabelStyle}" Text="Child to:"/>
+                                            <TextBox Style="{StaticResource InnerTextBox}" Text="{Binding Path=Relation.Cardinality.ChildTo, Mode=TwoWay,ValidatesOnExceptions=True}" />
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                        </toolkit:DockPanel>
+
+                    </Grid>
+
+                </sdk:TabItem>
+                <sdk:TabItem Header="DDL" x:Name="ddlTabItem">
+                <sdk:TabItem.Resources>
+                    <Converters:RelationViewStateToScriptConverter x:Key="RelationViewStateToScriptConverter"/>
+                </sdk:TabItem.Resources>
+                <TextBox x:Name="ddlTextBox" IsReadOnly="True" Text="{Binding Path=Self, Converter={StaticResource RelationViewStateToScriptConverter}}">
+                    <toolkit:ContextMenuService.ContextMenu>
+                        <toolkit:ContextMenu>
+                            <toolkit:MenuItem                                    
+                                    Header="Copy to clipboard"
+                                    Click="CopyDDLToClipboardClick"
+                                   >
+                                <toolkit:MenuItem.Icon>
+                                    <Image Source="/SqLauncher.Web.UI;component/Images/Copy.png"/>
+                                </toolkit:MenuItem.Icon>
+                            </toolkit:MenuItem>
+                        </toolkit:ContextMenu>
+                    </toolkit:ContextMenuService.ContextMenu>
+                </TextBox>
+            </sdk:TabItem>
+            </sdk:TabControl>
+
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="120" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>           
+
+            <Button
+                Grid.Column="1" Grid.Row="0"
+                HorizontalAlignment="Right"
+                Height="25"
+                Width="60"
+                Margin="20,0,20,0"
+                Click="CloseButtonClick"
+                >OK</Button>
+        </Grid>
+    </Grid>
+</UserControl>

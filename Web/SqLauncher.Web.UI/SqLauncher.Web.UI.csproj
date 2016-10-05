@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{257FD808-EBCB-4A6D-8B08-1B792736F18D}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SqLauncher.Web.UI</RootNamespace>
+    <AssemblyName>SqLauncher.Web.UI</AssemblyName>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <!-- This property group is only here to support building this project using the 
+       MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
+       to set the TargetFrameworkVersion to v3.5 -->
+  <PropertyGroup Condition="'$(MSBuildToolsVersion)' == '3.5'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Build\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Build\Release\</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.Unity.Interception.Silverlight, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.Unity.Silverlight, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="mscorlib" />
+    <Reference Include="SilverlightContrib">
+      <HintPath>..\..\Libs\SilverlightContrib.dll</HintPath>
+    </Reference>
+    <Reference Include="SilverlightContrib.Controls">
+      <HintPath>..\..\Libs\SilverlightContrib.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Data, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Toolkit, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Browser" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppearanceChangedEventArgs.cs" />
+    <Compile Include="Behaviors\DataGridReorderItemsEventArgs.cs" />
+    <Compile Include="Behaviors\DataGridReorderRowsBehavior.cs" />
+    <Compile Include="Behaviors\SelectRelationFormBehavior.cs" />
+    <Compile Include="Converters\AttributeKeyTypeToImageSourceConverter.cs" />
+    <Compile Include="Converters\AttributeKeyTypeToIsKeyConverter.cs" />
+    <Compile Include="Behaviors\RelationSwitchEditBehavior.cs" />
+    <Compile Include="Behaviors\TextBoxValidationBehavior.cs" />
+    <Compile Include="ColorHelper.cs" />
+    <Compile Include="Converters\CardinalityToStringConverter.cs" />
+    <Compile Include="Converters\EntityIndexToIndexedAttributesConverter.cs" />
+    <Compile Include="Converters\EntityViewStateToAsciiConverter.cs" />
+    <Compile Include="Converters\EntityViewStateToScriptConverter.cs" />
+    <Compile Include="Converters\ListCountToVisibilityConverter.cs" />
+    <Compile Include="Converters\RelationshipTypeConverter.cs" />
+    <Compile Include="Converters\RelationViewStateToScriptConverter.cs" />
+    <Compile Include="DataProviders\RelationshipTypesDataProvider.cs" />
+    <Compile Include="EntityFormEdit.xaml.cs">
+      <DependentUpon>EntityFormEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EntityViewState.cs" />
+    <Compile Include="ExtendedTabControl.cs" />
+    <Compile Include="ExtendedTabItem.cs" />
+    <Compile Include="IIteractionState.cs" />
+    <Compile Include="IndexedAttributeProxy.cs" />
+    <Compile Include="LayoutZManager.cs" />
+    <Compile Include="Model\AddEntityIndexEventArgs.cs" />
+    <Compile Include="Model\AddIndexAttributeEventArgs.cs" />
+    <Compile Include="Model\DeleteEntityIndexEventArgs.cs" />
+    <Compile Include="Model\DeleteIndexAttributeEventArgs.cs" />
+    <Compile Include="Model\DeserializingEventArgs.cs" />
+    <Compile Include="Model\DialogClosedEventArgs.cs" />
+    <Compile Include="Model\DialogResult.cs" />
+    <Compile Include="Model\EntityAttributeReorderingEventArgs.cs" />
+    <Compile Include="Model\IDocumentXmlSerializer.cs" />
+    <Compile Include="Model\ISerializerDialog.cs" />
+    <Compile Include="Model\ISqlGenerationFormViewState.cs" />
+    <Compile Include="Model\IViewState.cs" />
+    <Compile Include="Model\SerializingEventArgs.cs" />
+    <Compile Include="Model\SqlGeneratingEventArgs.cs" />
+    <Compile Include="Model\VersionViewLoadedEventArgs.cs" />
+    <Compile Include="SerializerDialog.cs" />
+    <Compile Include="SqlGenerationFormViewState.cs" />
+    <Compile Include="Model\VersionViewAddingEventArgs.cs" />
+    <Compile Include="Model\DatabaseDocument.cs" />
+    <Compile Include="Model\DatabaseVersion.cs" />
+    <Compile Include="Model\EntityViewStateCollection.cs" />
+    <Compile Include="Model\IRelationViewState.cs" />
+    <Compile Include="ModelViewState.cs" />
+    <Compile Include="Model\AddEntityAttributeEventArgs.cs" />
+    <Compile Include="Behaviors\EditButtonBehavior.cs" />
+    <Compile Include="Behaviors\ImageMouseOverBehavior.cs" />
+    <Compile Include="Behaviors\MouseMoveBehavior.cs" />
+    <Compile Include="Behaviors\MouseOver3DTrigger.cs" />
+    <Compile Include="Behaviors\SelectAndResizeEntityFormBehavior.cs" />
+    <Compile Include="Behaviors\SwivelFormBehavior.cs" />
+    <Compile Include="Converters\InvertBooleanConverter.cs" />
+    <Compile Include="Converters\SizeToRectConverter.cs" />
+    <Compile Include="DataProviders\DbTypeDataProvider.cs" />
+    <Compile Include="Model\ElementLoadedEventArgs.cs" />
+    <Compile Include="EntityForm.xaml.cs">
+      <DependentUpon>EntityForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\IEntityForm.cs" />
+    <Compile Include="Model\IEntityViewState.cs" />
+    <Compile Include="Model\IForm.cs" />
+    <Compile Include="Model\IModelView.cs" />
+    <Compile Include="Model\IModelViewState.cs" />
+    <Compile Include="Model\IRelationForm.cs" />
+    <Compile Include="Model\DeleteEntityAttributeEventArgs.cs" />
+    <Compile Include="Model\IVersionedModelView.cs" />
+    <Compile Include="Model\MouseButtonDownEventArgs.cs" />
+    <Compile Include="Model\MouseButtonUpEventArgs.cs" />
+    <Compile Include="Model\MouseMoveEventArgs.cs" />
+    <Compile Include="Model\PositionChangedEventArgs.cs" />
+    <Compile Include="Model\LineDescriptor.cs" />
+    <Compile Include="ModelView.xaml.cs">
+      <DependentUpon>ModelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PositionChangingEventArgs.cs" />
+    <Compile Include="Model\EntitySizeChangedEventArgs.cs" />
+    <Compile Include="Model\RelationViewStateCollection.cs" />
+    <Compile Include="Model\ScaledMouseMoveEventArgs.cs" />
+    <Compile Include="Model\VersionViewRemovingEventArgs.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyChangeNotifier.cs" />
+    <Compile Include="Model\RectConnector.cs" />
+    <Compile Include="RelationForm.xaml.cs">
+      <DependentUpon>RelationForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SelectionStateChangedEventArgs.cs" />
+    <Compile Include="Model\VisibilityChangedEventArgs.cs" />
+    <Compile Include="RelationFormEdit.xaml.cs">
+      <DependentUpon>RelationFormEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RelationViewState.cs" />
+    <Compile Include="SqlGenerationForm.xaml.cs">
+      <DependentUpon>SqlGenerationForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ISqlGenerationForm.cs" />
+    <Compile Include="SqLite\SqLiteIteractionState.cs" />
+    <Compile Include="VersionedModelView.xaml.cs">
+      <DependentUpon>VersionedModelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewStateBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="DataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EntityForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EntityFormEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RelationForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RelationFormEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SqlGenerationForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="VersionedModelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SqLauncher.Web.Model\SqLauncher.Web.Model.csproj">
+      <Project>{9BCB2490-6D25-4D1F-8960-D4D2C12FD26F}</Project>
+      <Name>SqLauncher.Web.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SqLauncher.Web.UI.Common\SqLauncher.Web.UI.Common.csproj">
+      <Project>{43A1E458-FC50-4D41-A570-AB68FA7F31B6}</Project>
+      <Name>SqLauncher.Web.UI.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AddNew.png" />
+    <Resource Include="Images\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PrimaryKey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ArrowUpDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ForeignKey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PrimaryForeignKey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Copy.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
+        <SilverlightProjectProperties />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

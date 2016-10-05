@@ -1,0 +1,22 @@
+http://visualstudiogallery.msdn.microsoft.com/feeb23d4-9295-4d79-be59-8c12a6f0d79b/?SRC=VSIDE
+This toolwindow views the results of Silverlight unit tests from the Silverlight Toolkit.
+Required steps:
+
+1.) Install the Silverlight Toolkit, which will provide the new "Silverlight Unit Test" project type from http://silverlight.codeplex.com/
+
+2.) To be able to use this toolwindow, you have to download "StatLight" from http://statlight.codeplex.com/.
+
+3.) Then extract the content to:
+
+Local App Data Directory (e.g. "C:\Users\JohnDoe\AppData\Local\StatLight")
+
+StatLight will be used to execute the unit tests.
+Planned improvements:
+
+Complete silent mode (dependant on commandline support via StatLight and Silverlight Toolkit project output as non-xap)
+
+Run tests on build-finished-option
+
+Tag-filter for tests to run
+
+Performance improvements

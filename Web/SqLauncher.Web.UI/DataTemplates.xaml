@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Model="clr-namespace:SqLauncher.Web.Model;assembly=SqLauncher.Web.Model" 
+                    >
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Styles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
+    <DataTemplate DataType="Model:ItemName" x:Key="FormCaptionViewDataTemplate">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="{Binding Path=Title, Mode=TwoWay}" Style="{StaticResource EntityCaptionLabelStyle}"
+                 VerticalAlignment="Top" FontWeight="Black"
+                       TextOptions.TextRenderingMode="ClearType"
+                       TextOptions.TextFormattingMode="Display"                       
+                       />
+            <TextBlock Text="{Binding Path=Physical, Mode=TwoWay}" Style="{StaticResource EntityCaptionLabelStyle}"
+                 VerticalAlignment="Top" FontStyle="Italic"
+                       TextOptions.TextRenderingMode="ClearType"
+                       TextOptions.TextFormattingMode="Display"  
+                       />
+        </StackPanel>
+    </DataTemplate>
+
+    
+</ResourceDictionary>

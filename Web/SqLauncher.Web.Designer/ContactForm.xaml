@@ -1,0 +1,55 @@
+﻿<sdk:ChildWindow x:Class="SqLauncher.Web.Designer.ContactForm"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Designer="clr-namespace:SqLauncher.Web.Designer"
+                 xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" mc:Ignorable="d"
+    d:DesignHeight="312" d:DesignWidth="495" d:DataContext="{d:DesignInstance Type=Designer:ContactForm}">
+   
+    
+    <Grid x:Name="LayoutRoot" >
+        <Grid.Resources>
+            <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="10,0,0,0"/>
+            </Style>
+            <Style x:Key="TextBoxStyle" TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Margin" Value="10,0,10,0"/>
+            </Style>
+        </Grid.Resources>
+       
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>            
+            <ColumnDefinition Width="350"/>            
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="30"/>           
+            
+            <RowDefinition/>            
+            
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Contact name" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Email" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Subject" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Message" Style="{StaticResource TextBlockStyle}"/>
+
+        <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource TextBoxStyle}" Text="{Binding Path=ContactName,Mode=TwoWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource TextBoxStyle}" Text="{Binding Path=Email,Mode=TwoWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource TextBoxStyle}" Text="{Binding Path=Subject,Mode=TwoWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Margin="10,10,10,10" AcceptsReturn="True" Text="{Binding Path=Message,Mode=TwoWay}"/>
+
+        <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0">
+            <Button Width="75" Height="23" Click="ButtonSendClick">Send</Button>
+            <Button Width="75" Height="23" Margin="20,0,0,0" Click="ButtonCloseClick">Cancel</Button>
+        </StackPanel>
+        
+    </Grid>
+</sdk:ChildWindow>

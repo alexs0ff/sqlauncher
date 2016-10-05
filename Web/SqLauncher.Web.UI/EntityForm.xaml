@@ -1,0 +1,176 @@
+﻿<UserControl x:Class="SqLauncher.Web.UI.EntityForm" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:behaviors="clr-namespace:SqLauncher.Web.UI.Behaviors" xmlns:UI="clr-namespace:SqLauncher.Web.UI"
+             xmlns:Converters="clr-namespace:SqLauncher.Web.UI.Converters" Name="entityFormRoot" mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=UI:EntityViewState}" d:DesignHeight="400" d:DesignWidth="600"           
+             MinHeight="90"
+             MinWidth="100"             
+             >
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Styles.xaml" />
+        <ResourceDictionary Source="DataTemplates.xaml" />                
+            </ResourceDictionary.MergedDictionaries>
+            <Converters:AttributeKeyTypeToImageSourceConverter x:Key="AttributeKeyTypeToImageSourceConverter"/>
+        </ResourceDictionary>
+  </UserControl.Resources>   
+    <i:Interaction.Behaviors>
+     <behaviors:SelectAndResizeEntityFormBehavior x:Name="selectedEntityFormBehavior"/>    
+    <behaviors:SwivelFormBehavior x:Name="SwivelFormBehavior" FrontElementName="EntityView"
+                                  Duration="00:00:00.8000000" Rotation="BottomToTop" />
+     
+    </i:Interaction.Behaviors>
+    <Grid ShowGridLines="False">
+        <!--The View-->
+        <Border Name="EntityView" Visibility="Visible" BorderThickness="0,0,1,1"
+            CornerRadius="10,10,10,10" BorderBrush="Black"             
+            >
+            <Border
+                Opacity="1.0"
+                BorderThickness="1,1,1,1"
+                CornerRadius="10,10,10,10" BorderBrush="{StaticResource EntityBorderBrush}" 
+                VerticalAlignment="Stretch"            
+                HorizontalAlignment="Stretch" 
+                Background="{Binding Path=BackgroundBrush,Mode=OneWay}"
+                >
+
+
+                <StackPanel          
+          Orientation="Vertical" VerticalAlignment="Stretch">
+
+                    <StackPanel.Clip>
+                        <RectangleGeometry RadiusX="10" RadiusY="10"
+                             Rect="{Binding Path=ActialSize, ElementName=entityFormRoot,Converter={StaticResource SizeToRectConverter}}"></RectangleGeometry>
+                    </StackPanel.Clip>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Vertical"  MinWidth="100" MinHeight="20" Margin="5">
+                            
+                            <TextBlock Text="{Binding Path=Entity.Caption.Title, Mode=TwoWay}" Style="{StaticResource EntityCaptionLabelStyle}"
+                                VerticalAlignment="Top" FontWeight="Black"
+                                TextOptions.TextRenderingMode="ClearType"
+                                TextOptions.TextFormattingMode="Display"                       
+                            />
+                            <TextBlock Text="{Binding Path=Entity.Caption.Physical, Mode=TwoWay}" Style="{StaticResource EntityCaptionLabelStyle}"
+                                VerticalAlignment="Top" FontStyle="Italic"
+                                TextOptions.TextRenderingMode="ClearType"
+                                TextOptions.TextFormattingMode="Display" 
+                                       Visibility="{Binding Path=IteractionState.PhysicalView,Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                            />                           
+                        </StackPanel>
+                        <Rectangle Fill="{StaticResource EntityBorderBrush}" Height="1" StrokeThickness="1"
+                     HorizontalAlignment="Stretch" />
+                    </StackPanel>
+
+                    <Grid MinHeight="80" >
+                        <Grid.Resources>
+                            <Style x:Key="ElementStyle" TargetType="FrameworkElement">
+                                <Setter Property="Height" Value="16"/>
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <!--Place of key image-->
+                            <ColumnDefinition Width="20" />
+                            <!--Place of the Caption-->
+                            <ColumnDefinition  />
+                            <!--Place of DataType-->
+                            <ColumnDefinition MinWidth="30"/>
+                            <!--Place of the IsUnique flag-->
+                            <ColumnDefinition Width="20" />
+                            <!--Place of the IsNotNull flag-->
+                            <ColumnDefinition Width="63" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <ItemsControl Grid.Column="0" ItemsSource="{Binding Path=Entity.Attributes}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <!--Keyed image-->
+                                    <Image 
+                                        Style="{StaticResource ElementStyle}" VerticalAlignment="Center"
+                                        Source="{Binding Path=Key,Converter={StaticResource AttributeKeyTypeToImageSourceConverter}}"
+                                                   />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <ItemsControl Grid.Column="1" ItemsSource="{Binding Path=Entity.Attributes}">
+                            <ItemsControl.ItemTemplate>
+                                <!--Caption-->
+                                <DataTemplate>
+                                    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Style="{StaticResource ElementStyle}">
+                                        <TextBlock Style="{StaticResource AttributeCaptionLabelStyle}" Text="{Binding Path=Caption.Title}"
+                                                    Visibility="{Binding ElementName=EntityView, Path=DataContext.IteractionState.PhysicalView,Mode=OneWay, Converter={StaticResource InvertBoolToVisibilityConverter}}" />
+                                        <TextBlock Style="{StaticResource AttributeCaptionLabelStyle}" Text="{Binding Path=Caption.Physical}"
+                                                   Visibility="{Binding ElementName=EntityView, Path=DataContext.IteractionState.PhysicalView,Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                   />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl >
+                        <ItemsControl Grid.Column="2" ItemsSource="{Binding Path=Entity.Attributes}" HorizontalAlignment="Stretch">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <!--DataType-->
+                                    <StackPanel Style="{StaticResource ElementStyle}" Grid.Row="0" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <TextBlock Margin="5,0,0,0" Style="{StaticResource AttributeCaptionLabelStyle}" Text=":" />
+                                        <TextBlock Style="{StaticResource AttributeCaptionLabelStyle}" Text="{Binding Path=DbType.Name}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <ItemsControl Grid.Column="3" ItemsSource="{Binding Path=Entity.Attributes}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Style="{StaticResource ElementStyle}">
+                                    <!--Is Unique Need to replace some image-->
+                                    <TextBlock  Margin="5,0,0,0" Grid.Row="0" Grid.Column="3"
+                           Style="{StaticResource AttributeCaptionLabelStyle}" Text="U"
+                           Visibility="{Binding Path=IsUnique, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <ItemsControl Grid.Column="4" ItemsSource="{Binding Path=Entity.Attributes}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Style="{StaticResource ElementStyle}">
+                                        <!--Is Not Null, after i should replace -->
+                                        <TextBlock Margin="5,0,0,0" Grid.Row="0" Grid.Column="4"
+                                            Style="{StaticResource AttributeCaptionLabelStyle}" Text="NOT NULL"
+                                            Visibility="{Binding Path=IsNotNull, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                    </Grid>
+                    <!--Indexes layout-->
+                    <StackPanel Visibility="{Binding Path=Entity.Indexes,Converter={StaticResource ListCountToVisibilityConverter}}">
+                        <Rectangle Fill="{StaticResource EntityBorderBrush}" Height="1" StrokeThickness="1"
+                             HorizontalAlignment="Stretch" />
+                        <ItemsControl ItemsSource="{Binding Path=Entity.Indexes}" Margin="5,0,0,3">
+                            <ItemsControl.ItemTemplate>
+                                <!--Caption-->
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource AttributeCaptionLabelStyle}" Text="{Binding Path=Caption.Title}"
+                                                        Visibility="{Binding ElementName=EntityView, Path=DataContext.IteractionState.PhysicalView,Mode=OneWay, Converter={StaticResource InvertBoolToVisibilityConverter}}" /> 
+                                <TextBlock Style="{StaticResource AttributeCaptionLabelStyle}" Text="{Binding Path=Caption.Physical}"
+                                           Visibility="{Binding ElementName=EntityView, Path=DataContext.IteractionState.PhysicalView,Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                                           />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    </ItemsControl >
+                </StackPanel>
+
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

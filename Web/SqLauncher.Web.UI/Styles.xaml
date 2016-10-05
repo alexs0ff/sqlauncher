@@ -1,0 +1,178 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Converters="clr-namespace:SqLauncher.Web.UI.Converters"
+    xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
+    xmlns:Converters1="clr-namespace:SqLauncher.Web.UI.Common.Converters;assembly=SqLauncher.Web.UI.Common">
+
+    <Converters:SizeToRectConverter x:Key="SizeToRectConverter"/>
+    <Converters1:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    <Converters1:InvertBoolToVisibilityConverter x:Key="InvertBoolToVisibilityConverter"/>
+    <Converters:InvertBooleanConverter x:Key="InvertBooleanConverter"/>
+    <Converters:AttributeKeyTypeToIsKeyConverter x:Key="AttributeKeyTypeToIsKeyConverter"/>
+    <Converters:ListCountToVisibilityConverter x:Key="ListCountToVisibilityConverter"/>
+    <Converters1:EnumToIntConverter x:Key="EnumToIntConverter"/>
+    <Converters1:EnumToIEnumerableConverter x:Key="EnumToIEnumerableConverter"/>
+    <Style x:Key="FormsLabelStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="11"/>
+    </Style>
+    
+    <!--Colors-->
+    <Color x:Key="EntityBorderColor">Black</Color>
+    <Color x:Key="EntityFormDefaultColor">#FFD3DCEF</Color>
+    <Color x:Key="ControlBackgroundColor">#FFEAEDF0</Color>
+    <Color x:Key="ControlBackgroundColor2">#FFFFFFFF</Color>
+    
+    
+    <!--Brushes-->
+    <LinearGradientBrush x:Key="EntityFormDefaultBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="{StaticResource EntityFormDefaultColor}" Offset="0.0" />
+        <GradientStop Color="#FFFFFFFF" Offset=" 1.0" />
+    </LinearGradientBrush>
+
+    <SolidColorBrush  x:Key="EntityBorderBrush" Color="{StaticResource EntityBorderColor}"/>
+    <SolidColorBrush  x:Key="EntityFormFillDefaultBrush" Color="{StaticResource EntityFormDefaultColor}"/>
+    <SolidColorBrush x:Key="ControlBackgroundBrush" Color="{StaticResource ControlBackgroundColor}"/>
+    <SolidColorBrush x:Key="ControlBackgroundBrush2" Color="{StaticResource ControlBackgroundColor2}"/>
+    <!--And of Borders-->
+    <!--Labels styling-->
+    <Style x:Key="TextLabelStyle" TargetType="TextBlock">        
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="FontFamily" Value="Verdana"/>
+        <Setter Property="FontSize" Value="11"/>       
+    </Style>
+
+    <Style x:Key="EntityCaptionLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource TextLabelStyle}">
+       
+    </Style>
+
+    <Style x:Key="AttributeCaptionLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource TextLabelStyle}">        
+        <Setter Property="FontSize" Value="11"/>
+    </Style>
+
+    <Style x:Key="EntityLabelOfTextLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource TextLabelStyle}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <!--End of Labels styling-->  
+    
+    <!--Edit box style-->
+    <Style x:Key="EntityEditTextBoxStyle" TargetType="TextBox">
+        <Setter Property="FontFamily" Value="Verdana"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="Background" Value="WhiteSmoke"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="AcceptsReturn" Value="False"/>
+    </Style>
+    <!--Lines-->
+    <Style x:Key="RelationLineStyle" TargetType="Line">
+        <Setter Property="StrokeThickness" Value="2"/>
+        <Setter Property="Stroke" Value="Black"/>
+    </Style>
+    
+    <!--The rectangles of selection-->
+    
+    <Style x:Key="SelectionRectangleStyle" TargetType="Rectangle">
+        <Setter Property="Fill" Value="#FFFAE13E"/>
+        <Setter Property="Height" Value="12"/>
+        <Setter Property="Width" Value="12"/>
+        <Setter Property="StrokeThickness" Value="1"/>
+        <Setter Property="Stroke" Value="Black"/>
+        <Setter Property="RadiusX" Value="2"/>
+        <Setter Property="RadiusY" Value="2"/>
+        <Setter Property="Opacity" Value="0.7"/>
+    </Style>
+
+    <Style x:Key="RelationFormSelectionRectangleStyle" TargetType="Rectangle" BasedOn="{StaticResource SelectionRectangleStyle}">
+        <Setter Property="Height" Value="9"/>
+        <Setter Property="Width" Value="9"/>
+    </Style>
+
+    <!--Entity Edit button-->
+    <Style x:Key="EntityEditButtonStyle" TargetType="ToggleButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid x:Name="SwivelPanel" Margin="0,0,0,0" Height="56" Width="56" 
+									RenderTransformOrigin="0.5,0.5">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="00:00:00.2500000">
+                                        <VisualTransition.GeneratedEasingFunction>
+                                            <ExponentialEase EasingMode="EaseOut"/>
+                                        </VisualTransition.GeneratedEasingFunction>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="SwivelPanel" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0.4"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="SwivelPanel" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="SwivelPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="2"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="SwivelPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="2"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="CheckStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="00:00:00.8000000">
+                                        <VisualTransition.GeneratedEasingFunction>
+                                            <ExponentialEase EasingMode="EaseInOut"/>
+                                        </VisualTransition.GeneratedEasingFunction>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Unchecked">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="SwivelPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Checked">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="SwivelPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="-540"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Grid.RenderTransform>
+                        <Border CornerRadius="30" Background="{StaticResource EntityFormFillDefaultBrush}" Margin="13">
+                            <Grid Height="30" Width="30">
+                                <Path x:Name="ButtonPath" Stretch="Fill" Stroke="White" StrokeEndLineCap="Round" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeThickness="5" Margin="5.55,3.792,0.523,1.904" RenderTransformOrigin="0.5,0.5" Data="M2.5,2.5 L33.208,-3.2079999 L27.5,27.5" UseLayoutRounding="False">
+                                    <Path.RenderTransform>
+                                        <CompositeTransform Rotation="-44.655" TranslateX="-2.8539999795747022" TranslateY="1.1821653992262426"/>
+                                    </Path.RenderTransform>
+                                </Path>
+                                <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                        </Border>                       
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

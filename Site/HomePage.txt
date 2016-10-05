@@ -1,0 +1,7 @@
+﻿<!--:en--> <!--:--><!--:ru-->  <!--:-->
+
+<!--:en-->Data Modeling Tool<!--:--><!--:ru-->Редактор ER диаграм<!--:-->
+
+<!--:en-->Try it now free without sign up, without install, without download. Everywhere access for your <a href="http://www.sqlite.org">SQLite</a> schemes.<!--:--><!--:ru-->Позволяет без установки и регистрации, дома или на работе получить доступ к Вашим ERD-схемам баз данных <a href="http://www.sqlite.org">SQLite</a><!--:-->
+
+<!--:en-->Start!<!--:--><!--:ru-->Запустить!<!--:-->

@@ -1,0 +1,7 @@
+﻿CREATE TABLE Cert
+(
+	CertId Integer PRIMARY KEY,
+	Name Text(10),
+	ItemId Integer,
+	FOREIGN KEY (ItemId) REFERENCES Item(ItemId)
+)
